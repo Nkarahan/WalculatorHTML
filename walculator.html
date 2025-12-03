@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Walculator — Walmart WFS Profit Calculator</title>
+  <meta name="description" content="Instant profit calculator for Walmart sellers. See net profit, fees, ROI and minimum buy cost on any Walmart product page.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://i.imgur.com/qhHt2C9.png" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+
+/* ================================================== */
+/* ROOT + GLOBAL */
+/* ================================================== */
+:root {
+  --blue: #0071ce;
+  --blue-dark: #023e7d;
+  --blue-deep: #021b3a;
+  --light: #f7f9fc;
+  --green: #16a34a;
+  --text: #0f172a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: #ffffff;
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 22px;
+}
+
+/* ================================================== */
+/* HEADER */
+/* ================================================== */
+
+header {
+  position: sticky;
+  top: 0;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  z-index: 999;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.3rem 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--blue-dark);
+  gap: 10px;
+}
+
+.logo img {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+}
+
+/* NAV */
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-weight: 600;
+  color: #475569;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.nav-link:hover {
+  color: var(--blue);
+}
+
+.btn-primary {
+  background: var(--blue);
+  color: #fff;
+  padding: 12px 26px;
+  font-size: 1rem;
+  border-radius: 50px;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(0,113,206,0.3);
+  text-decoration: none;
+  transition: 0.25s;
+}
+
+.btn-primary:hover {
+  background: #005aa4;
+  transform: translateY(-2px);
+}
+
+/* ================================================== */
+/* HERO */
+/* ================================================== */
+
+.hero {
+  position: relative;
+  padding: 170px 0 150px;
+  text-align: center;
+  color: #f8fafc;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=2000&q=80');
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.45);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(2,27,58,0.75), rgba(2,27,58,0.9));
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+}
+
+.hero h1 {
+  font-size: 3.6rem;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  margin-bottom: 22px;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  max-width: 720px;
+  margin: 0 auto 35px;
+  color: #dbeafe;
+}
+
+.hero a.btn-primary {
+  padding: 16px 40px;
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.hero-subtext {
+  margin-top: 20px;
+  color: #c7d2fe;
+}
+
+/* ================================================== */
+/* UNIVERSAL SECTIONS */
+/* ================================================== */
+
+section {
+  padding: 150px 0;
+}
+
+/* ================================================== */
+/* SECTION TITLES */
+/* ================================================== */
+
+.section-title {
+  font-size: 3.1rem;
+  font-weight: 900;
+  text-align: center;
+  color: var(--blue-dark);
+  letter-spacing: -0.025em;
+  margin-bottom: 80px;
+  text-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+/* ================================================== */
+/* SLIDER */
+/* ================================================== */
+
+.slider {
+  max-width: 1100px;
+  margin: 0 auto;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 28px 70px rgba(0,0,0,0.12);
+}
+
+.slides {
+  display: flex;
+  width: 400%;
+  animation: slide 18s infinite;
+}
+
+.slides img {
+  width: 25%;
+  object-fit: cover;
+}
+
+@keyframes slide {
+  0%,20% { transform: translateX(0); }
+  25%,45% { transform: translateX(-25%); }
+  50%,70% { transform: translateX(-50%); }
+  75%,100% { transform: translateX(-75%); }
+}
+
+/* ================================================== */
+/* TESTIMONIALS */
+/* ================================================== */
+
+.test-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px,1fr));
+  gap: 32px;
+}
+
+.test-card {
+  background: #f8fafc;
+  padding: 30px;
+  border-radius: 18px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.07);
+}
+
+.test-stars {
+  color: #facc15;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.test-text {
+  font-size: 1.05rem;
+  margin-bottom: 20px;
+}
+
+.test-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.test-role {
+  color: #6b7280;
+}
+
+/* ================================================== */
+/* PRICING */
+/* ================================================== */
+
+.pricing {
+  background: var(--light);
+}
+
+.price-card {
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 50px;
+  background: white;
+  border-radius: 26px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.09);
+}
+
+.price-card h3 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.price-main {
+  font-size: 4.2rem;
+  font-weight: 900;
+  text-align: center;
+}
+
+.features-list {
+  margin-top: 35px;
+}
+
+.features-list li {
+  margin-bottom: 16px;
+  padding-left: 32px;
+  position: relative;
+  font-size: 1.1rem;
+}
+
+.features-list li::before {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  left: 0;
+  top: 3px;
+  background-image: url('data:image/svg+xml;utf8,<svg width="24" height="24" fill="%2316a34a" xmlns="http://www.w3.org/2000/svg"><path d="M20.285 6.709a1 1 0 010 1.414l-9.193 9.192a1 1 0 01-1.414 0L3.715 11.35a1 1 0 011.414-1.414l5.255 5.255 8.486-8.486a1 1 0 011.415 0z"/></svg>');
+  background-size: cover;
+}
+
+.btn-price {
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  margin-top: 35px;
+  padding: 16px 40px;
+  border-radius: 50px;
+  background: var(--blue);
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+/* ================================================== */
+/* FAQ SECTION */
+/* ================================================== */
+
+.faq-grid {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  gap: 22px;
+}
+
+.faq-item {
+  background: #f8fafc;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  padding: 18px 22px;
+  cursor: pointer;
+}
+
+.faq-question {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-icon {
+  font-size: 1.8rem;
+  color: var(--blue);
+  font-weight: 900;
+}
+
+.faq-answer {
+  display: none;
+  margin-top: 12px;
+  font-size: 1.05rem;
+  color: #475569;
+  line-height: 1.6;
+}
+
+/* ================================================== */
+/* FINAL CTA */
+/* ================================================== */
+
+.final-cta {
+  background-image: url('https://images.unsplash.com/photo-1542744173-05336fcc7ad4?auto=format&fit=crop&w=2000&q=80');
+  background-size: cover;
+  background-position: center;
+  padding: 160px 0;
+  position: relative;
+  color: white;
+  text-align: center;
+}
+
+.final-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(2,27,58,0.85);
+}
+
+.final-cta-inner {
+  position: relative;
+  z-index: 2;
+}
+
+.final-cta h2 {
+  font-size: 3rem;
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+
+.final-cta p {
+  font-size: 1.25rem;
+  margin-bottom: 40px;
+}
+
+.btn-cta {
+  display: inline-block;
+  padding: 18px 48px;
+  background: white;
+  color: var(--blue-dark);
+  font-size: 1.3rem;
+  font-weight: 800;
+  border-radius: 50px;
+  text-decoration: none;
+}
+
+/* ================================================== */
+/* FOOTER */
+/* ================================================== */
+
+footer {
+  background: #0f172a;
+  padding: 40px 0;
+  text-align: center;
+  color: #cbd5e1;
+}
+
+/* ================================================== */
+/* CONTACT CHAT BOX */
+/* ================================================== */
+
+#chat-bubble {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 58px;
+  height: 58px;
+  background: var(--blue);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+  cursor: pointer;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+  z-index: 9999;
+}
+
+#chat-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.chat-box {
+  width: 360px;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+}
+
+.chat-box input,
+.chat-box textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  margin-bottom: 14px;
+  font-size: 1rem;
+}
+
+.btn-chat-send {
+  width: 100%;
+  padding: 12px;
+  background: var(--blue);
+  color: white;
+  font-weight: 700;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.btn-chat-close {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  background: #e5e7eb;
+  color: #374151;
+  border-radius: 10px;
+}
+
+  </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="container header-inner">
+    <div class="logo">
+      <img src="https://i.imgur.com/qhHt2C9.png">
+      Walculator
+    </div>
+    <nav class="nav">
+      <a class="nav-link" id="nav-contact">Contact Us</a>
+      <a class="btn-primary" href="https://chromewebstore.google.com/detail/walmart-profit-calculator/cmbdlodelpppmcgbgkecnpplcappingi" target="_blank">Get Free Trial</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="container hero-inner">
+    <h1>Instant Profit Insights on Every Walmart Product Page</h1>
+    <p>See your true net profit, referral fees, ROI and max buy cost instantly — directly on Walmart product pages.</p>
+    <a href="https://chromewebstore.google.com/detail/walmart-profit-calculator/cmbdlodelpppmcgbgkecnpplcappingi" class="btn-primary" target="_blank">Start 7-Day Free Trial</a>
+    <div class="hero-subtext">Cancel anytime</div>
+  </div>
+</section>
+
+<!-- SLIDER -->
+<section>
+  <div class="container">
+    <h2 class="section-title">Walculator in Action</h2>
+    <div class="slider">
+      <div class="slides">
+        <img src="https://i.imgur.com/yC6aEJV.png">
+        <img src="https://i.imgur.com/S95auJK.png">
+        <img src="https://i.imgur.com/INrsOk8.png">
+        <img src="https://i.imgur.com/iGr7Z4m.png">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container">
+    <h2 class="section-title">Loved by Walmart Sellers</h2>
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-text">“Walculator saves me hours every week. Simple, fast, and extremely accurate.”</p>
+        <div class="test-name">Mark T.</div>
+        <div class="test-role">WFS Seller</div>
+      </div>
+
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-text">“The ROI target feature is a game changer. I never source without Walculator.”</p>
+        <div class="test-name">Sarah L.</div>
+        <div class="test-role">Online Arbitrage</div>
+      </div>
+
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-text">“UPC to Amazon link alone makes it worth it.”</p>
+        <div class="test-name">Jacob R.</div>
+        <div class="test-role">Marketplace Seller</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing">
+  <div class="container">
+    <h2 class="section-title">One Simple Plan</h2>
+    <div class="price-card">
+      <h3>Walculator Pro</h3>
+      <div class="price-main">$9.99</div>
+
+      <ul class="features-list">
+        <li>Instant profit calculations</li>
+        <li>Custom ROI/margin goals</li>
+        <li>Correct referral fee logic</li>
+        <li>UPC→Amazon link</li>
+        <li>Notes per product</li>
+        <li>Priority support</li>
+      </ul>
+
+      <a href="https://chromewebstore.google.com/detail/walmart-profit-calculator/cmbdlodelpppmcgbgkecnpplcappingi" 
+         class="btn-price" 
+         target="_blank">
+         Start Free Trial
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ SECTION -->
+<section class="faq-section">
+  <div class="container">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+
+    <div class="faq-grid">
+
+      <div class="faq-item">
+        <div class="faq-question">
+          How does Walculator work?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Walculator automatically detects Walmart product data — price, weight, size, category, seller fees and more — then calculates net profit, ROI, total fees and maximum buy cost instantly.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Does it calculate Walmart referral fees?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Yes — all referral fee categories are supported, including Apparel, Grocery, Beauty, Electronics, Home and more. Includes the special $1 under $10 rule.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Does it calculate WFS (Walmart Fulfillment Services) fees?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Yes, including automatic weight conversion (oz/lb/g/kg/ml/L), multi-pack detection, and dimensional rules used by WFS.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          How does Walculator get accurate product weight?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Walculator reads weight from the specifications tab or title, converts all units into ounces, and multiplies by pack count if applicable.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Does it detect the category automatically?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Yes — it analyzes breadcrumbs, metadata, and Walmart's backend category tags to apply the correct referral fee category.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Can I set custom ROI or profit goals?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Yes — set your custom ROI/margin goals and Walculator instantly shows the maximum buy cost required to meet your target.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Does it generate Amazon links using UPC?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Yes — Walculator extracts the UPC and creates a direct Amazon search link so you can compare competition instantly.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Does the extension include private notes?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Yes — save sourcing notes per product directly on Walmart pages.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Is there a free trial?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Yes — enjoy a full 7-day free trial.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="final-cta-inner">
+    <h2>Ready to Make Smarter Buying Decisions?</h2>
+    <p>Join thousands of Walmart sellers using Walculator every day.</p>
+    <a href="https://chromewebstore.google.com/detail/walmart-profit-calculator/cmbdlodelpppmcgbgkecnpplcappingi" 
+       class="btn-cta" 
+       target="_blank">
+       Start Your Free Trial
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">© 2025 Walculator — All Rights Reserved</div>
+</footer>
+
+<!-- CHAT -->
+<div id="chat-bubble">💬</div>
+
+<div id="chat-modal">
+  <div class="chat-box">
+    <h3>Contact Us</h3>
+    <input id="chat-name" type="text" placeholder="Your name">
+    <input id="chat-email" type="email" placeholder="Your email">
+    <textarea id="chat-message" placeholder="Your message"></textarea>
+    <button class="btn-chat-send" id="chat-send">Send</button>
+    <button class="btn-chat-close" id="chat-close">Close</button>
+  </div>
+</div>
+
+<!-- EMAILJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+
+<script>
+  emailjs.init("8psRnAmRoX-eptiLp");
+
+  const SERVICE_ID = "service_28por9r";
+  const TEMPLATE_ID = "template_snmio2f";
+
+  const bubble = document.getElementById("chat-bubble");
+  const modal = document.getElementById("chat-modal");
+  const closeBtn = document.getElementById("chat-close");
+  const sendBtn = document.getElementById("chat-send");
+  const navContact = document.getElementById("nav-contact");
+
+  /* OPEN CHAT */
+  bubble.onclick = () => modal.style.display = "flex";
+
+  /* CONTACT US BUTTON IN HEADER */
+  navContact.addEventListener("click", function (e) {
+    e.preventDefault();
+    modal.style.display = "flex";
+  });
+
+  /* CLOSE CHAT */
+  closeBtn.onclick = () => modal.style.display = "none";
+
+  /* SEND EMAIL */
+  sendBtn.onclick = () => {
+    const name = document.getElementById("chat-name").value.trim();
+    const email = document.getElementById("chat-email").value.trim();
+    const message = document.getElementById("chat-message").value.trim();
+
+    if (!name || !email || !message) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, {
+      from_name: name,
+      reply_to: email,
+      message: message,
+      to_email: "walculatorapp@gmail.com"
+    })
+    .then(() => {
+      alert("Message sent successfully!");
+      modal.style.display = "none";
+    })
+    .catch((err) => {
+      console.error(err);
+      alert("Failed to send");
+    });
+
+  };
+</script>
+
+<!-- FAQ ACCORDION SCRIPT -->
+<script>
+document.querySelectorAll(".faq-item").forEach((item) => {
+  const question = item.querySelector(".faq-question");
+  const answer = item.querySelector(".faq-answer");
+  const icon = item.querySelector(".faq-icon");
+
+  question.addEventListener("click", () => {
+    const isOpen = item.classList.contains("open");
+
+    // Close all
+    document.querySelectorAll(".faq-item").forEach(i => {
+      i.classList.remove("open");
+      i.querySelector(".faq-answer").style.display = "none";
+      i.querySelector(".faq-icon").textContent = "+";
+    });
+
+    // Open current
+    if (!isOpen) {
+      item.classList.add("open");
+      answer.style.display = "block";
+      icon.textContent = "−";
+    }
+  });
+});
+</script>
+
+</body>
+</html>
