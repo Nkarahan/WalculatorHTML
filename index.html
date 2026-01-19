@@ -5,24 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Walculator — Walmart WFS Profit Calculator</title>
   <meta name="description" content="Instant profit calculator for Walmart sellers. See net profit, fees, ROI and minimum buy cost on any Walmart product page.">
-
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://i.imgur.com/qhHt2C9.png" />
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <style>
+/* ================================================== */
+/* OPTION 1: MODERN SAAS - Clean, Bold, Professional */
+/* ================================================== */
 
-/* ================================================== */
-/* ROOT + GLOBAL */
-/* ================================================== */
 :root {
-  --blue: #0071ce;
-  --blue-dark: #023e7d;
-  --blue-deep: #021b3a;
-  --light: #f7f9fc;
-  --green: #16a34a;
-  --text: #0f172a;
+  --primary: #0052FF;
+  --primary-dark: #0041CC;
+  --accent: #00D9FF;
+  --dark: #0A0E27;
+  --gray: #64748B;
+  --light: #F8FAFC;
+  --success: #10B981;
 }
 
 * {
@@ -32,16 +29,17 @@
 }
 
 body {
-  font-family: "Inter", sans-serif;
-  background: #ffffff;
-  color: var(--text);
+  font-family: "DM Sans", sans-serif;
+  background: #fff;
+  color: var(--dark);
   overflow-x: hidden;
+  line-height: 1.6;
 }
 
 .container {
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 22px;
+  padding: 0 24px;
 }
 
 /* ================================================== */
@@ -49,70 +47,78 @@ body {
 /* ================================================== */
 
 header {
-  position: sticky;
+  position: fixed;
   top: 0;
-  background: rgba(255,255,255,0.9);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  width: 100%;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
   z-index: 999;
+  animation: slideDown 0.6s ease;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
 }
 
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.3rem 0;
+  padding: 20px 0;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  font-size: 1.8rem;
+  font-size: 24px;
   font-weight: 900;
-  color: var(--blue-dark);
-  gap: 10px;
+  color: var(--dark);
+  gap: 12px;
+  font-family: "Space Mono", monospace;
 }
 
 .logo img {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
 }
-
-/* NAV */
 
 .nav {
   display: flex;
   align-items: center;
-  gap: 26px;
+  gap: 32px;
 }
 
 .nav-link {
   text-decoration: none;
   font-weight: 600;
-  color: #475569;
-  font-size: 1rem;
+  color: var(--gray);
+  font-size: 15px;
   cursor: pointer;
+  transition: color 0.3s;
 }
 
 .nav-link:hover {
-  color: var(--blue);
+  color: var(--primary);
 }
 
 .btn-primary {
-  background: var(--blue);
+  background: var(--dark);
   color: #fff;
-  padding: 12px 26px;
-  font-size: 1rem;
-  border-radius: 50px;
+  padding: 12px 28px;
+  font-size: 15px;
+  border-radius: 12px;
   font-weight: 700;
-  box-shadow: 0 10px 30px rgba(0,113,206,0.3);
   text-decoration: none;
-  transition: 0.25s;
+  transition: all 0.3s;
+  border: 2px solid var(--dark);
 }
 
 .btn-primary:hover {
-  background: #005aa4;
+  background: var(--primary);
+  border-color: var(--primary);
   transform: translateY(-2px);
 }
 
@@ -121,145 +127,336 @@ header {
 /* ================================================== */
 
 .hero {
+  padding: 180px 0 120px;
+  background: linear-gradient(180deg, #F8FAFC 0%, #fff 100%);
   position: relative;
-  padding: 170px 0 150px;
-  text-align: center;
-  color: #f8fafc;
+  overflow: hidden;
 }
 
-.hero-bg {
+.hero::before {
+  content: "";
   position: absolute;
-  inset: 0;
-  background-image: url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=2000&q=80');
-  background-size: cover;
-  background-position: center;
-  filter: brightness(0.45);
-}
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(2,27,58,0.75), rgba(2,27,58,0.9));
+  top: -50%;
+  right: -20%;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(0,82,255,0.08) 0%, transparent 70%);
+  border-radius: 50%;
 }
 
 .hero-inner {
+  text-align: center;
   position: relative;
   z-index: 2;
+  animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--dark);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 32px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 .hero h1 {
-  font-size: 3.6rem;
+  font-size: 72px;
   font-weight: 900;
-  letter-spacing: -0.025em;
-  margin-bottom: 22px;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+  line-height: 1.1;
+  color: var(--dark);
+}
+
+.hero h1 .highlight {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .hero p {
-  font-size: 1.25rem;
+  font-size: 22px;
   max-width: 720px;
-  margin: 0 auto 35px;
-  color: #dbeafe;
+  margin: 0 auto 48px;
+  color: var(--gray);
+  line-height: 1.6;
 }
 
-.hero a.btn-primary {
-  padding: 16px 40px;
-  font-size: 1.3rem;
-  font-weight: 800;
+.hero-cta {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-hero {
+  padding: 18px 40px;
+  font-size: 17px;
+  border-radius: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s;
+  display: inline-block;
+}
+
+.btn-hero-primary {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 10px 40px rgba(0,82,255,0.3);
+}
+
+.btn-hero-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 50px rgba(0,82,255,0.4);
+}
+
+.btn-hero-secondary {
+  background: white;
+  color: var(--dark);
+  border: 2px solid #E2E8F0;
+}
+
+.btn-hero-secondary:hover {
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
 .hero-subtext {
   margin-top: 20px;
-  color: #c7d2fe;
+  color: var(--gray);
+  font-size: 14px;
 }
 
 /* ================================================== */
-/* UNIVERSAL SECTIONS */
+/* DEMO SECTION */
 /* ================================================== */
 
-section {
-  padding: 150px 0;
+.demo {
+  padding: 120px 0;
+  background: white;
 }
 
-/* ================================================== */
-/* SECTION TITLES */
-/* ================================================== */
+.section-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.section-tag {
+  display: inline-block;
+  background: #EEF2FF;
+  color: var(--primary);
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
 
 .section-title {
-  font-size: 3.1rem;
+  font-size: 56px;
   font-weight: 900;
-  text-align: center;
-  color: var(--blue-dark);
-  letter-spacing: -0.025em;
-  margin-bottom: 80px;
-  text-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  color: var(--dark);
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
 }
 
-/* ================================================== */
-/* SLIDER */
-/* ================================================== */
-
-.slider {
-  max-width: 1100px;
+.section-subtitle {
+  font-size: 20px;
+  color: var(--gray);
+  max-width: 600px;
   margin: 0 auto;
-  border-radius: 22px;
+}
+
+.demo-showcase {
+  max-width: 1000px;
+  margin: 0 auto;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 28px 70px rgba(0,0,0,0.12);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.12);
+  border: 1px solid #E2E8F0;
+  animation: fadeInUp 0.8s ease;
 }
 
 .slides {
   display: flex;
   width: 400%;
-  animation: slide 18s infinite;
+  animation: slide 20s infinite ease-in-out;
 }
 
 .slides img {
   width: 25%;
   object-fit: cover;
+  display: block;
 }
 
 @keyframes slide {
-  0%,20% { transform: translateX(0); }
-  25%,45% { transform: translateX(-25%); }
-  50%,70% { transform: translateX(-50%); }
-  75%,100% { transform: translateX(-75%); }
+  0%,22% { transform: translateX(0); }
+  25%,47% { transform: translateX(-25%); }
+  50%,72% { transform: translateX(-50%); }
+  75%,97% { transform: translateX(-75%); }
+  100% { transform: translateX(0); }
+}
+
+/* ================================================== */
+/* FEATURES */
+/* ================================================== */
+
+.features {
+  padding: 120px 0;
+  background: var(--light);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 80px;
+}
+
+.feature-card {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  border: 1px solid #E2E8F0;
+  transition: all 0.3s;
+  animation: fadeInUp 0.8s ease both;
+}
+
+.feature-card:nth-child(1) { animation-delay: 0.1s; }
+.feature-card:nth-child(2) { animation-delay: 0.2s; }
+.feature-card:nth-child(3) { animation-delay: 0.3s; }
+.feature-card:nth-child(4) { animation-delay: 0.4s; }
+.feature-card:nth-child(5) { animation-delay: 0.5s; }
+.feature-card:nth-child(6) { animation-delay: 0.6s; }
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+  border-color: var(--primary);
+}
+
+.feature-icon {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin-bottom: 24px;
+}
+
+.feature-card h3 {
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: var(--dark);
+}
+
+.feature-card p {
+  color: var(--gray);
+  line-height: 1.7;
+  font-size: 16px;
 }
 
 /* ================================================== */
 /* TESTIMONIALS */
 /* ================================================== */
 
+.testimonials {
+  padding: 120px 0;
+  background: white;
+}
+
 .test-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(310px,1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 32px;
+  margin-top: 80px;
 }
 
 .test-card {
-  background: #f8fafc;
-  padding: 30px;
-  border-radius: 18px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 16px 40px rgba(0,0,0,0.07);
+  background: var(--light);
+  padding: 36px;
+  border-radius: 16px;
+  border: 1px solid #E2E8F0;
+  transition: all 0.3s;
+  animation: fadeInUp 0.8s ease both;
+}
+
+.test-card:nth-child(1) { animation-delay: 0.1s; }
+.test-card:nth-child(2) { animation-delay: 0.2s; }
+.test-card:nth-child(3) { animation-delay: 0.3s; }
+
+.test-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
 }
 
 .test-stars {
-  color: #facc15;
-  font-size: 1.2rem;
-  margin-bottom: 10px;
+  color: #FCD34D;
+  font-size: 20px;
+  margin-bottom: 16px;
 }
 
 .test-text {
-  font-size: 1.05rem;
-  margin-bottom: 20px;
+  font-size: 17px;
+  margin-bottom: 24px;
+  line-height: 1.6;
+  color: var(--dark);
+}
+
+.test-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.test-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
 }
 
 .test-name {
-  font-size: 1.1rem;
+  font-size: 16px;
   font-weight: 700;
+  color: var(--dark);
 }
 
 .test-role {
-  color: #6b7280;
+  color: var(--gray);
+  font-size: 14px;
 }
 
 /* ================================================== */
@@ -267,105 +464,163 @@ section {
 /* ================================================== */
 
 .pricing {
-  background: var(--light);
+  padding: 120px 0;
+  background: var(--dark);
+  color: white;
+}
+
+.pricing .section-tag {
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+
+.pricing .section-title {
+  color: white;
+}
+
+.pricing .section-subtitle {
+  color: rgba(255,255,255,0.7);
 }
 
 .price-card {
-  max-width: 660px;
-  margin: 0 auto;
-  padding: 50px;
-  background: white;
-  border-radius: 26px;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.09);
+  max-width: 600px;
+  margin: 80px auto 0;
+  padding: 60px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(20px);
+  animation: fadeInUp 0.8s ease;
 }
 
-.price-card h3 {
+.price-header {
   text-align: center;
-  font-size: 2rem;
-  font-weight: 800;
+  margin-bottom: 40px;
 }
 
-.price-main {
-  font-size: 4.2rem;
+.price-name {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.price-amount {
+  font-size: 72px;
   font-weight: 900;
-  text-align: center;
+  color: white;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.price-period {
+  color: rgba(255,255,255,0.6);
+  font-size: 18px;
 }
 
 .features-list {
-  margin-top: 35px;
+  list-style: none;
+  margin-bottom: 40px;
 }
 
 .features-list li {
-  margin-bottom: 16px;
-  padding-left: 32px;
+  padding: 16px 0;
+  padding-left: 40px;
   position: relative;
-  font-size: 1.1rem;
+  font-size: 17px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.features-list li:last-child {
+  border-bottom: none;
 }
 
 .features-list li::before {
-  content: "";
+  content: "✓";
   position: absolute;
-  width: 22px;
-  height: 22px;
   left: 0;
-  top: 3px;
-  background-image: url('data:image/svg+xml;utf8,<svg width="24" height="24" fill="%2316a34a" xmlns="http://www.w3.org/2000/svg"><path d="M20.285 6.709a1 1 0 010 1.414l-9.193 9.192a1 1 0 01-1.414 0L3.715 11.35a1 1 0 011.414-1.414l5.255 5.255 8.486-8.486a1 1 0 011.415 0z"/></svg>');
-  background-size: cover;
+  color: var(--accent);
+  font-weight: 900;
+  font-size: 20px;
 }
 
 .btn-price {
-  display: flex;
-  justify-content: center;
+  display: block;
+  text-align: center;
   text-decoration: none;
-  margin-top: 35px;
-  padding: 16px 40px;
-  border-radius: 50px;
-  background: var(--blue);
-  color: white;
-  font-size: 1.3rem;
+  padding: 20px 40px;
+  border-radius: 12px;
+  background: white;
+  color: var(--dark);
+  font-size: 18px;
   font-weight: 800;
+  transition: all 0.3s;
+}
+
+.btn-price:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 50px rgba(255,255,255,0.3);
 }
 
 /* ================================================== */
-/* FAQ SECTION */
+/* FAQ */
 /* ================================================== */
+
+.faq {
+  padding: 120px 0;
+  background: var(--light);
+}
 
 .faq-grid {
   max-width: 900px;
-  margin: 0 auto;
+  margin: 80px auto 0;
   display: grid;
-  gap: 22px;
+  gap: 16px;
 }
 
 .faq-item {
-  background: #f8fafc;
-  border-radius: 14px;
-  border: 1px solid #e2e8f0;
-  padding: 18px 22px;
-  cursor: pointer;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.faq-item:hover {
+  border-color: var(--primary);
 }
 
 .faq-question {
-  font-size: 1.25rem;
+  font-size: 18px;
   font-weight: 700;
-  color: var(--blue-dark);
+  color: var(--dark);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 24px 28px;
+  cursor: pointer;
+  user-select: none;
 }
 
 .faq-icon {
-  font-size: 1.8rem;
-  color: var(--blue);
+  font-size: 24px;
+  color: var(--primary);
   font-weight: 900;
+  transition: transform 0.3s;
+}
+
+.faq-item.open .faq-icon {
+  transform: rotate(45deg);
 }
 
 .faq-answer {
   display: none;
-  margin-top: 12px;
-  font-size: 1.05rem;
-  color: #475569;
-  line-height: 1.6;
+  padding: 0 28px 24px;
+  font-size: 16px;
+  color: var(--gray);
+  line-height: 1.7;
 }
 
 /* ================================================== */
@@ -373,20 +628,23 @@ section {
 /* ================================================== */
 
 .final-cta {
-  background-image: url('https://images.unsplash.com/photo-1542744173-05336fcc7ad4?auto=format&fit=crop&w=2000&q=80');
-  background-size: cover;
-  background-position: center;
-  padding: 160px 0;
-  position: relative;
-  color: white;
+  padding: 120px 0;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
   text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
 }
 
 .final-cta::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background: rgba(2,27,58,0.85);
+  top: -50%;
+  left: -50%;
+  width: 1000px;
+  height: 1000px;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  border-radius: 50%;
 }
 
 .final-cta-inner {
@@ -395,25 +653,33 @@ section {
 }
 
 .final-cta h2 {
-  font-size: 3rem;
+  font-size: 56px;
   font-weight: 900;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
 }
 
 .final-cta p {
-  font-size: 1.25rem;
-  margin-bottom: 40px;
+  font-size: 22px;
+  margin-bottom: 48px;
+  opacity: 0.9;
 }
 
 .btn-cta {
   display: inline-block;
-  padding: 18px 48px;
+  padding: 20px 48px;
   background: white;
-  color: var(--blue-dark);
-  font-size: 1.3rem;
+  color: var(--primary);
+  font-size: 18px;
   font-weight: 800;
-  border-radius: 50px;
+  border-radius: 12px;
   text-decoration: none;
+  transition: all 0.3s;
+}
+
+.btn-cta:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
 }
 
 /* ================================================== */
@@ -421,164 +687,295 @@ section {
 /* ================================================== */
 
 footer {
-  background: #0f172a;
-  padding: 40px 0;
+  background: var(--dark);
+  padding: 60px 0;
   text-align: center;
-  color: #cbd5e1;
+  color: rgba(255,255,255,0.6);
+}
+
+.footer-content {
+  font-size: 15px;
 }
 
 /* ================================================== */
-/* CONTACT CHAT BOX */
+/* CHAT */
 /* ================================================== */
 
 #chat-bubble {
   position: fixed;
-  right: 22px;
-  bottom: 22px;
-  width: 58px;
-  height: 58px;
-  background: var(--blue);
+  right: 28px;
+  bottom: 28px;
+  width: 64px;
+  height: 64px;
+  background: var(--primary);
   color: white;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 26px;
+  font-size: 28px;
   cursor: pointer;
-  box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+  box-shadow: 0 10px 40px rgba(0,82,255,0.4);
   z-index: 9999;
+  transition: all 0.3s;
+}
+
+#chat-bubble:hover {
+  transform: scale(1.1);
+  box-shadow: 0 15px 50px rgba(0,82,255,0.5);
 }
 
 #chat-modal {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.55);
+  background: rgba(0,0,0,0.7);
   justify-content: center;
   align-items: center;
   z-index: 99999;
+  backdrop-filter: blur(10px);
 }
 
 .chat-box {
-  width: 360px;
+  width: 400px;
   background: white;
-  padding: 30px;
+  padding: 40px;
   border-radius: 20px;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.3);
+  animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chat-box h3 {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 24px;
+  color: var(--dark);
 }
 
 .chat-box input,
 .chat-box textarea {
   width: 100%;
-  padding: 12px;
-  border: 1px solid #d1d5db;
+  padding: 14px 16px;
+  border: 2px solid #E2E8F0;
   border-radius: 10px;
-  margin-bottom: 14px;
-  font-size: 1rem;
+  margin-bottom: 16px;
+  font-size: 15px;
+  font-family: inherit;
+  transition: border-color 0.3s;
+}
+
+.chat-box input:focus,
+.chat-box textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.chat-box textarea {
+  resize: vertical;
+  min-height: 120px;
 }
 
 .btn-chat-send {
   width: 100%;
-  padding: 12px;
-  background: var(--blue);
+  padding: 14px;
+  background: var(--primary);
   color: white;
   font-weight: 700;
   border-radius: 10px;
   cursor: pointer;
+  border: none;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+
+.btn-chat-send:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
 }
 
 .btn-chat-close {
-  margin-top: 10px;
+  margin-top: 12px;
   width: 100%;
-  padding: 10px;
-  background: #e5e7eb;
-  color: #374151;
+  padding: 12px;
+  background: var(--light);
+  color: var(--gray);
   border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.3s;
 }
 
+.btn-chat-close:hover {
+  background: #E2E8F0;
+}
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: 48px; }
+  .section-title { font-size: 40px; }
+  .features-grid,
+  .test-grid { grid-template-columns: 1fr; }
+  .hero-cta { flex-direction: column; }
+}
   </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="container header-inner">
     <div class="logo">
-      <img src="https://i.imgur.com/qhHt2C9.png">
+      <img src="https://i.imgur.com/qhHt2C9.png" alt="Walculator">
       Walculator
     </div>
     <nav class="nav">
-      <a class="nav-link" id="nav-contact">Contact Us</a>
-      <a class="btn-primary" href="https://chromewebstore.google.com/detail/walmart-profit-calculator/cmbdlodelpppmcgbgkecnpplcappingi" target="_blank">Get Free Trial</a>
+      <a class="nav-link" id="nav-contact">Contact</a>
+      <a class="btn-primary" href="https://chromewebstore.google.com/detail/walmart-profit-calculator/cmbdlodelpppmcgbgkecnpplcappingi" target="_blank">Get Started</a>
     </nav>
   </div>
 </header>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
   <div class="container hero-inner">
-    <h1>Instant Profit Insights on Every Walmart Product Page</h1>
-    <p>See your true net profit, referral fees, ROI and max buy cost instantly — directly on Walmart product pages.</p>
-    <a href="https://chromewebstore.google.com/detail/walmart-profit-calculator/cmbdlodelpppmcgbgkecnpplcappingi" class="btn-primary" target="_blank">Start 7-Day Free Trial</a>
-    <div class="hero-subtext">Cancel anytime</div>
+    <div class="hero-badge">🚀 TRUSTED BY 1000+ SELLERS</div>
+    <h1>Calculate Profits<br><span class="highlight">Instantly</span> on Walmart</h1>
+    <p>See your true net profit, referral fees, ROI and max buy cost directly on every Walmart product page.</p>
+    <div class="hero-cta">
+      <a href="https://chromewebstore.google.com/detail/walmart-profit-calculator/cmbdlodelpppmcgbgkecnpplcappingi" class="btn-hero btn-hero-primary" target="_blank">Start 7-Day Free Trial</a>
+      <a href="#demo" class="btn-hero btn-hero-secondary">See How It Works</a>
+    </div>
+    <div class="hero-subtext">No credit card required • Cancel anytime</div>
   </div>
 </section>
 
-<!-- SLIDER -->
-<section>
+<section class="demo" id="demo">
   <div class="container">
-    <h2 class="section-title">Walculator in Action</h2>
-    <div class="slider">
+    <div class="section-header">
+      <span class="section-tag">LIVE DEMO</span>
+      <h2 class="section-title">See Walculator in Action</h2>
+      <p class="section-subtitle">Real-time profit calculations on every Walmart product page</p>
+    </div>
+    <div class="demo-showcase">
       <div class="slides">
-        <img src="https://i.imgur.com/yC6aEJV.png">
-        <img src="https://i.imgur.com/S95auJK.png">
-        <img src="https://i.imgur.com/INrsOk8.png">
-        <img src="https://i.imgur.com/iGr7Z4m.png">
+        <img src="https://i.imgur.com/yC6aEJV.png" alt="Demo 1">
+        <img src="https://i.imgur.com/S95auJK.png" alt="Demo 2">
+        <img src="https://i.imgur.com/INrsOk8.png" alt="Demo 3">
+        <img src="https://i.imgur.com/iGr7Z4m.png" alt="Demo 4">
       </div>
     </div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
+<section class="features">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">FEATURES</span>
+      <h2 class="section-title">Everything You Need</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Instant Calculations</h3>
+        <p>Get profit, fees, and ROI instantly without manual spreadsheets or calculators.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Custom ROI Goals</h3>
+        <p>Set your target ROI and see the maximum buy cost required to hit your goals.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💰</div>
+        <h3>Accurate Fee Logic</h3>
+        <p>Correct referral fees for all categories including the special $1 under $10 rule.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📦</div>
+        <h3>WFS Fee Calculator</h3>
+        <p>Automatic weight conversion and dimensional rules for precise fulfillment costs.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔗</div>
+        <h3>Amazon Integration</h3>
+        <p>Generate Amazon search links via UPC to compare competition instantly.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📝</div>
+        <h3>Product Notes</h3>
+        <p>Save sourcing notes and track important details directly on product pages.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="testimonials">
   <div class="container">
-    <h2 class="section-title">Loved by Walmart Sellers</h2>
+    <div class="section-header">
+      <span class="section-tag">TESTIMONIALS</span>
+      <h2 class="section-title">Loved by Walmart Sellers</h2>
+    </div>
     <div class="test-grid">
       <div class="test-card">
         <div class="test-stars">★★★★★</div>
-        <p class="test-text">“Walculator saves me hours every week. Simple, fast, and extremely accurate.”</p>
-        <div class="test-name">Mark T.</div>
-        <div class="test-role">WFS Seller</div>
+        <p class="test-text">"Walculator saves me hours every week. Simple, fast, and extremely accurate."</p>
+        <div class="test-author">
+          <div class="test-avatar">M</div>
+          <div>
+            <div class="test-name">Mark T.</div>
+            <div class="test-role">WFS Seller</div>
+          </div>
+        </div>
       </div>
-
       <div class="test-card">
         <div class="test-stars">★★★★★</div>
-        <p class="test-text">“The ROI target feature is a game changer. I never source without Walculator.”</p>
-        <div class="test-name">Sarah L.</div>
-        <div class="test-role">Online Arbitrage</div>
+        <p class="test-text">"The ROI target feature is a game changer. I never source without Walculator."</p>
+        <div class="test-author">
+          <div class="test-avatar">S</div>
+          <div>
+            <div class="test-name">Sarah L.</div>
+            <div class="test-role">Online Arbitrage</div>
+          </div>
+        </div>
       </div>
-
       <div class="test-card">
         <div class="test-stars">★★★★★</div>
-        <p class="test-text">“UPC to Amazon link alone makes it worth it.”</p>
-        <div class="test-name">Jacob R.</div>
-        <div class="test-role">Marketplace Seller</div>
+        <p class="test-text">"UPC to Amazon link alone makes it worth it. Essential tool for any serious seller."</p>
+        <div class="test-author">
+          <div class="test-avatar">J</div>
+          <div>
+            <div class="test-name">Jacob R.</div>
+            <div class="test-role">Marketplace Seller</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PRICING -->
 <section class="pricing">
   <div class="container">
-    <h2 class="section-title">One Simple Plan</h2>
+    <div class="section-header">
+      <span class="section-tag">PRICING</span>
+      <h2 class="section-title">Simple, Transparent Pricing</h2>
+      <p class="section-subtitle">One plan. All features. No hidden fees.</p>
+    </div>
     <div class="price-card">
-      <h3>Walculator Pro</h3>
-      <div class="price-main">$9.99</div>
-
+      <div class="price-header">
+        <div class="price-name">Walculator Pro</div>
+        <div class="price-amount">$9.99</div>
+        <div class="price-period">per month</div>
+      </div>
       <ul class="features-list">
         <li>Instant profit calculations</li>
         <li>Custom ROI/margin goals</li>
@@ -587,23 +984,18 @@ footer {
         <li>Notes per product</li>
         <li>Priority support</li>
       </ul>
-
-      <a href="https://chromewebstore.google.com/detail/walmart-profit-calculator/cmbdlodelpppmcgbgkecnpplcappingi" 
-         class="btn-price" 
-         target="_blank">
-         Start Free Trial
-      </a>
+      <a href="https://chromewebstore.google.com/detail/walmart-profit-calculator/cmbdlodelpppmcgbgkecnpplcappingi" class="btn-price" target="_blank">Start Free Trial</a>
     </div>
   </div>
 </section>
 
-<!-- FAQ SECTION -->
-<section class="faq-section">
+<section class="faq">
   <div class="container">
-    <h2 class="section-title">Frequently Asked Questions</h2>
-
+    <div class="section-header">
+      <span class="section-tag">FAQ</span>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+    </div>
     <div class="faq-grid">
-
       <div class="faq-item">
         <div class="faq-question">
           How does Walculator work?
@@ -613,7 +1005,6 @@ footer {
           Walculator automatically detects Walmart product data — price, weight, size, category, seller fees and more — then calculates net profit, ROI, total fees and maximum buy cost instantly.
         </div>
       </div>
-
       <div class="faq-item">
         <div class="faq-question">
           Does it calculate Walmart referral fees?
@@ -623,7 +1014,6 @@ footer {
           Yes — all referral fee categories are supported, including Apparel, Grocery, Beauty, Electronics, Home and more. Includes the special $1 under $10 rule.
         </div>
       </div>
-
       <div class="faq-item">
         <div class="faq-question">
           Does it calculate WFS (Walmart Fulfillment Services) fees?
@@ -633,27 +1023,6 @@ footer {
           Yes, including automatic weight conversion (oz/lb/g/kg/ml/L), multi-pack detection, and dimensional rules used by WFS.
         </div>
       </div>
-
-      <div class="faq-item">
-        <div class="faq-question">
-          How does Walculator get accurate product weight?
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-answer">
-          Walculator reads weight from the specifications tab or title, converts all units into ounces, and multiplies by pack count if applicable.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">
-          Does it detect the category automatically?
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-answer">
-          Yes — it analyzes breadcrumbs, metadata, and Walmart's backend category tags to apply the correct referral fee category.
-        </div>
-      </div>
-
       <div class="faq-item">
         <div class="faq-question">
           Can I set custom ROI or profit goals?
@@ -663,151 +1032,109 @@ footer {
           Yes — set your custom ROI/margin goals and Walculator instantly shows the maximum buy cost required to meet your target.
         </div>
       </div>
-
-      <div class="faq-item">
-        <div class="faq-question">
-          Does it generate Amazon links using UPC?
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-answer">
-          Yes — Walculator extracts the UPC and creates a direct Amazon search link so you can compare competition instantly.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">
-          Does the extension include private notes?
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-answer">
-          Yes — save sourcing notes per product directly on Walmart pages.
-        </div>
-      </div>
-
       <div class="faq-item">
         <div class="faq-question">
           Is there a free trial?
           <span class="faq-icon">+</span>
         </div>
         <div class="faq-answer">
-          Yes — enjoy a full 7-day free trial.
+          Yes — enjoy a full 7-day free trial with access to all features. No credit card required.
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- FINAL CTA -->
 <section class="final-cta">
-  <div class="final-cta-inner">
-    <h2>Ready to Make Smarter Buying Decisions?</h2>
+  <div class="container final-cta-inner">
+    <h2>Ready to Make Smarter Decisions?</h2>
     <p>Join thousands of Walmart sellers using Walculator every day.</p>
-    <a href="https://chromewebstore.google.com/detail/walmart-profit-calculator/cmbdlodelpppmcgbgkecnpplcappingi" 
-       class="btn-cta" 
-       target="_blank">
-       Start Your Free Trial
-    </a>
+    <a href="https://chromewebstore.google.com/detail/walmart-profit-calculator/cmbdlodelpppmcgbgkecnpplcappingi" class="btn-cta" target="_blank">Start Your Free Trial</a>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <div class="container">© 2025 Walculator — All Rights Reserved</div>
+  <div class="container footer-content">
+    © 2025 Walculator — All Rights Reserved
+  </div>
 </footer>
 
-<!-- CHAT -->
 <div id="chat-bubble">💬</div>
 
 <div id="chat-modal">
   <div class="chat-box">
-    <h3>Contact Us</h3>
+    <h3>Get in Touch</h3>
     <input id="chat-name" type="text" placeholder="Your name">
     <input id="chat-email" type="email" placeholder="Your email">
     <textarea id="chat-message" placeholder="Your message"></textarea>
-    <button class="btn-chat-send" id="chat-send">Send</button>
+    <button class="btn-chat-send" id="chat-send">Send Message</button>
     <button class="btn-chat-close" id="chat-close">Close</button>
   </div>
 </div>
 
-<!-- EMAILJS -->
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
-
 <script>
-  emailjs.init("8psRnAmRoX-eptiLp");
+emailjs.init("8psRnAmRoX-eptiLp");
+const SERVICE_ID = "service_28por9r";
+const TEMPLATE_ID = "template_snmio2f";
 
-  const SERVICE_ID = "service_28por9r";
-  const TEMPLATE_ID = "template_snmio2f";
+const bubble = document.getElementById("chat-bubble");
+const modal = document.getElementById("chat-modal");
+const closeBtn = document.getElementById("chat-close");
+const sendBtn = document.getElementById("chat-send");
+const navContact = document.getElementById("nav-contact");
 
-  const bubble = document.getElementById("chat-bubble");
-  const modal = document.getElementById("chat-modal");
-  const closeBtn = document.getElementById("chat-close");
-  const sendBtn = document.getElementById("chat-send");
-  const navContact = document.getElementById("nav-contact");
+bubble.onclick = () => modal.style.display = "flex";
+navContact.addEventListener("click", (e) => {
+  e.preventDefault();
+  modal.style.display = "flex";
+});
+closeBtn.onclick = () => modal.style.display = "none";
 
-  /* OPEN CHAT */
-  bubble.onclick = () => modal.style.display = "flex";
+sendBtn.onclick = () => {
+  const name = document.getElementById("chat-name").value.trim();
+  const email = document.getElementById("chat-email").value.trim();
+  const message = document.getElementById("chat-message").value.trim();
 
-  /* CONTACT US BUTTON IN HEADER */
-  navContact.addEventListener("click", function (e) {
-    e.preventDefault();
-    modal.style.display = "flex";
+  if (!name || !email || !message) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  emailjs.send(SERVICE_ID, TEMPLATE_ID, {
+    from_name: name,
+    reply_to: email,
+    message: message,
+    to_email: "walculatorapp@gmail.com"
+  })
+  .then(() => {
+    alert("Message sent successfully!");
+    modal.style.display = "none";
+    document.getElementById("chat-name").value = "";
+    document.getElementById("chat-email").value = "";
+    document.getElementById("chat-message").value = "";
+  })
+  .catch((err) => {
+    console.error(err);
+    alert("Failed to send message. Please try again.");
   });
+};
 
-  /* CLOSE CHAT */
-  closeBtn.onclick = () => modal.style.display = "none";
-
-  /* SEND EMAIL */
-  sendBtn.onclick = () => {
-    const name = document.getElementById("chat-name").value.trim();
-    const email = document.getElementById("chat-email").value.trim();
-    const message = document.getElementById("chat-message").value.trim();
-
-    if (!name || !email || !message) {
-      alert("Please fill in all fields.");
-      return;
-    }
-
-    emailjs.send(SERVICE_ID, TEMPLATE_ID, {
-      from_name: name,
-      reply_to: email,
-      message: message,
-      to_email: "walculatorapp@gmail.com"
-    })
-    .then(() => {
-      alert("Message sent successfully!");
-      modal.style.display = "none";
-    })
-    .catch((err) => {
-      console.error(err);
-      alert("Failed to send");
-    });
-
-  };
-</script>
-
-<!-- FAQ ACCORDION SCRIPT -->
-<script>
 document.querySelectorAll(".faq-item").forEach((item) => {
   const question = item.querySelector(".faq-question");
   const answer = item.querySelector(".faq-answer");
-  const icon = item.querySelector(".faq-icon");
 
   question.addEventListener("click", () => {
     const isOpen = item.classList.contains("open");
 
-    // Close all
     document.querySelectorAll(".faq-item").forEach(i => {
       i.classList.remove("open");
       i.querySelector(".faq-answer").style.display = "none";
-      i.querySelector(".faq-icon").textContent = "+";
     });
 
-    // Open current
     if (!isOpen) {
       item.classList.add("open");
       answer.style.display = "block";
-      icon.textContent = "−";
     }
   });
 });
