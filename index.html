@@ -856,7 +856,7 @@ footer {
       <a href="https://chromewebstore.google.com/detail/walmart-profit-calculator/cmbdlodelpppmcgbgkecnpplcappingi" class="btn-hero btn-hero-primary" target="_blank">Start 7-Day Free Trial</a>
       <a href="#demo" class="btn-hero btn-hero-secondary">See How It Works</a>
     </div>
-    <div class="hero-subtext">Cancel anytime</div>
+    <div class="hero-subtext">No credit card required • Cancel anytime</div>
   </div>
 </section>
 
@@ -1072,9 +1072,13 @@ footer {
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script>
-emailjs.init("8psRnAmRoX-eptiLp");
+// Initialize EmailJS
+(function() {
+  emailjs.init("8psRnAmRoX-eptiLp");
+})();
+
 const SERVICE_ID = "service_28por9r";
 const TEMPLATE_ID = "template_snmio2f";
 
@@ -1090,6 +1094,9 @@ navContact.addEventListener("click", (e) => {
   modal.style.display = "flex";
 });
 closeBtn.onclick = () => modal.style.display = "none";
+modal.onclick = (e) => {
+  if (e.target === modal) modal.style.display = "none";
+};
 
 sendBtn.onclick = () => {
   const name = document.getElementById("chat-name").value.trim();
@@ -1101,22 +1108,30 @@ sendBtn.onclick = () => {
     return;
   }
 
+  // Disable button during send
+  sendBtn.disabled = true;
+  sendBtn.textContent = "Sending...";
+
   emailjs.send(SERVICE_ID, TEMPLATE_ID, {
     from_name: name,
     reply_to: email,
-    message: message,
-    to_email: "walculatorapp@gmail.com"
+    message: message
   })
-  .then(() => {
-    alert("Message sent successfully!");
+  .then((response) => {
+    console.log("SUCCESS!", response.status, response.text);
+    alert("Message sent successfully! We'll get back to you soon.");
     modal.style.display = "none";
     document.getElementById("chat-name").value = "";
     document.getElementById("chat-email").value = "";
     document.getElementById("chat-message").value = "";
   })
   .catch((err) => {
-    console.error(err);
-    alert("Failed to send message. Please try again.");
+    console.error("FAILED...", err);
+    alert("Failed to send message: " + (err.text || err.message || "Unknown error") + ". Please try again or email us directly at walculatorapp@gmail.com");
+  })
+  .finally(() => {
+    sendBtn.disabled = false;
+    sendBtn.textContent = "Send Message";
   });
 };
 
