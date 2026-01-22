@@ -383,6 +383,163 @@ header {
 }
 
 /* ================================================== */
+/* AFFILIATE PROGRAM */
+/* ================================================== */
+
+.affiliate {
+  padding: 120px 0;
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.affiliate::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.affiliate .section-tag {
+  background: rgba(255,255,255,0.2);
+  color: white;
+}
+
+.affiliate .section-title {
+  color: white;
+}
+
+.affiliate .section-subtitle {
+  color: rgba(255,255,255,0.9);
+}
+
+.affiliate-content {
+  max-width: 900px;
+  margin: 80px auto 0;
+  position: relative;
+  z-index: 2;
+}
+
+.affiliate-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 60px;
+}
+
+.stat-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(20px);
+  padding: 36px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.2);
+  text-align: center;
+  transition: all 0.3s;
+  animation: fadeInUp 0.8s ease both;
+}
+
+.stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stat-card:nth-child(2) { animation-delay: 0.2s; }
+.stat-card:nth-child(3) { animation-delay: 0.3s; }
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255,255,255,0.15);
+}
+
+.stat-number {
+  font-size: 56px;
+  font-weight: 900;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 16px;
+  opacity: 0.9;
+  font-weight: 600;
+}
+
+.affiliate-benefits {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(20px);
+  padding: 48px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.2);
+  margin-bottom: 48px;
+}
+
+.affiliate-benefits h3 {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.benefit-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.benefit-text h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.benefit-text p {
+  font-size: 15px;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+.affiliate-cta {
+  text-align: center;
+}
+
+.btn-affiliate {
+  display: inline-block;
+  padding: 20px 48px;
+  background: white;
+  color: var(--success);
+  font-size: 18px;
+  font-weight: 800;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.3s;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+.btn-affiliate:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+/* ================================================== */
 /* TESTIMONIALS */
 /* ================================================== */
 
@@ -826,7 +983,9 @@ footer {
   .hero h1 { font-size: 48px; }
   .section-title { font-size: 40px; }
   .features-grid,
-  .test-grid { grid-template-columns: 1fr; }
+  .test-grid,
+  .affiliate-stats,
+  .benefits-grid { grid-template-columns: 1fr; }
   .hero-cta { flex-direction: column; }
 }
   </style>
@@ -914,6 +1073,70 @@ footer {
         <div class="feature-icon">📝</div>
         <h3>Product Notes</h3>
         <p>Save sourcing notes and track important details directly on product pages.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="affiliate">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">AFFILIATE PROGRAM</span>
+      <h2 class="section-title">Earn While You Share</h2>
+      <p class="section-subtitle">Join our affiliate program and earn generous commissions for every referral</p>
+    </div>
+    <div class="affiliate-content">
+      <div class="affiliate-stats">
+        <div class="stat-card">
+          <div class="stat-number">30%</div>
+          <div class="stat-label">Commission Rate</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">$3</div>
+          <div class="stat-label">Per Paid Customer</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">∞</div>
+          <div class="stat-label">Unlimited Earnings</div>
+        </div>
+      </div>
+
+      <div class="affiliate-benefits">
+        <h3>Why Join Our Affiliate Program?</h3>
+        <div class="benefits-grid">
+          <div class="benefit-item">
+            <div class="benefit-icon">💸</div>
+            <div class="benefit-text">
+              <h4>Generous Commissions</h4>
+              <p>Earn 30% on every paying customer you refer</p>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">📊</div>
+            <div class="benefit-text">
+              <h4>Real-Time Tracking</h4>
+              <p>Monitor clicks, conversions, and earnings instantly</p>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">🎁</div>
+            <div class="benefit-text">
+              <h4>Exclusive Resources</h4>
+              <p>Get marketing materials and promotional assets</p>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">⚡</div>
+            <div class="benefit-text">
+              <h4>Quick Payouts</h4>
+              <p>Fast and reliable monthly commission payments</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="affiliate-cta">
+        <a href="#" id="affiliate-contact" class="btn-affiliate">Become an Affiliate Partner</a>
       </div>
     </div>
   </div>
@@ -1034,6 +1257,15 @@ footer {
       </div>
       <div class="faq-item">
         <div class="faq-question">
+          How does the affiliate program work?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Our affiliate program offers 30% commission on every paying customer you refer. You'll receive a unique tracking link, real-time analytics, and monthly payouts. Contact us to learn more and join.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
           Is there a free trial?
           <span class="faq-icon">+</span>
         </div>
@@ -1087,12 +1319,22 @@ const modal = document.getElementById("chat-modal");
 const closeBtn = document.getElementById("chat-close");
 const sendBtn = document.getElementById("chat-send");
 const navContact = document.getElementById("nav-contact");
+const affiliateContact = document.getElementById("affiliate-contact");
 
 bubble.onclick = () => modal.style.display = "flex";
+
 navContact.addEventListener("click", (e) => {
   e.preventDefault();
   modal.style.display = "flex";
 });
+
+affiliateContact.addEventListener("click", (e) => {
+  e.preventDefault();
+  modal.style.display = "flex";
+  // Pre-fill message for affiliate inquiries
+  document.getElementById("chat-message").value = "Hi! I'm interested in joining the Walculator affiliate program. Please send me more information.";
+});
+
 closeBtn.onclick = () => modal.style.display = "none";
 modal.onclick = (e) => {
   if (e.target === modal) modal.style.display = "none";
